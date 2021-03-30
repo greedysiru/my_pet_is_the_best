@@ -1,0 +1,154 @@
+// 사용자의 로그인 상태를 관리하는 모듈
+import { createAction, handleActions } from "redux-actions";
+// 불변성 관리 패키지
+import { produce } from "immer";
+// 쿠키 함수들 가져오기
+import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
+
+// Firebase 연동
+import { auth } from '../../shared/firebase';
+import firebase from 'firebase/app';
+
+// Actions
+const LOG_OUT = "LOG_OUT";
+const GET_USER = "GET_USER";
+const SET_USER = "SET_USER";
+
+// Action Creators
+const logOut = createAction(LOG_OUT, (user) => ({ user }));
+const getUser = createAction(GET_USER, (user) => ({ user }));
+const setUser = createAction(SET_USER, (user) => ({ user }));
+
+// Initial State
+const initialState = {
+  user: null,
+  is_login: false,
+};
+
+// Middleware Actions
+// 로그인 후 파이어베이스 정보와 확인
+const loginFB = (id, pwd) => {
+  return function (dispatch, getState, { history }) {
+    auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then((res) => {
+      auth.signInWithEmailAndPassword(id, pwd)
+        .then((user) => {
+          // 리덕스에 유저 정보 저장
+          dispatch(setUser({
+            user_name: user.user.displayName,
+            id: id,
+            user_profile: '',
+            uid: user.user.uid,
+          })
+          );
+          // 로그인 정상 처리 후 포스트리스트로 이동
+          history.push('/postlist');
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+        });
+    });
+  };
+};
+
+// Firebase 회원가입
+const signupFB = (id, pwd, user_name) => {
+  return function (dispatch, getState, { history }) {
+
+    auth
+      .createUserWithEmailAndPassword(id, pwd)
+      .then((user) => {
+        auth.currentUser.updateProfile({
+          displayName: user_name,
+        }).then(() => {
+          // 리덕스에 유저 정보 저장
+          dispatch(setUser({
+            user_name: user_name,
+            id: id,
+            user_profile: '',
+            uid: user.user.uid
+          }));
+          // 회원가입 정상 처리 후 로그인 페이지로 이동
+          history.push('/');
+        }).catch((error) => {
+          console.log(error);
+        });
+
+        // Signed in
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        console.log(errorCode, errorMessage);
+      });
+
+  }
+}
+
+// 로그인 체크
+const loginCheckFB = () => {
+  return function (dispatch, getState, { history }) {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        // 리덕스 최신화
+        dispatch(setUser({
+          user_name: user.displayName,
+          user_profile: '',
+          id: user.email,
+          uid: user.uid,
+        })
+        );
+        // 로그인 상태가 아니면 로그아웃 처리
+      } else {
+        dispatch(logOut())
+      }
+    })
+  }
+}
+
+// 로그아웃
+const logoutFB = () => {
+  return function (dispatch, getState, { history }) {
+    auth.signOut().then(() => {
+      dispatch(logOut());
+      // 로그인 화면으로 이동
+      history.replace('/');
+    })
+  }
+}
+
+// Reducers
+export default handleActions(
+  {
+    [SET_USER]: (state, action) =>
+      produce(state, (draft) => {
+        setCookie("is_login", "success");
+        draft.user = action.payload.user;
+        draft.is_login = true;
+      }),
+    [LOG_OUT]: (state, action) =>
+      produce(state, (draft) => {
+        deleteCookie("is_login");
+        draft.user = null;
+        draft.is_login = false;
+      }),
+    [GET_USER]: (state, action) => produce(state, (draft) => { }),
+  },
+  initialState
+);
+
+
+
+// Action Creators exprot
+const actionCreators = {
+  logOut,
+  getUser,
+  signupFB,
+  loginFB,
+  loginCheckFB,
+  logoutFB,
+};
+
+export { actionCreators };
