@@ -44,6 +44,7 @@ const loginFB = (id, pwd) => {
           history.push('/postlist');
         })
         .catch((error) => {
+          window.alert('로그인 오류입니다. 계정정보를 다시 확인해주세요.')
           var errorCode = error.code;
           var errorMessage = error.message;
           console.log(errorCode, errorMessage);
