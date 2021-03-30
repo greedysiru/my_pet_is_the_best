@@ -2,7 +2,7 @@ import React from 'react';
 
 
 // Router
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/configureStore';
 
@@ -10,6 +10,9 @@ import { history } from '../redux/configureStore';
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import PostList from "../pages/PostList";
+import PostWrite from '../pages/PostWrite';
+import Information from '../pages/Information';
+import NotFound from '../pages/NotFound';
 
 // shared
 import Footer from './Footer';
@@ -41,18 +44,25 @@ function App() {
   return (
     <React.Fragment>
       {/* Router */}
-      <Grid>
-        <ConnectedRouter history={history}>
-          {/* 세션이 있고 파이어베이스 로그인 상태이면 포스트 리스트로 이동 */}
-          <Route path='/' exact component={Login} />
-          <Route path='/signup' exact component={Signup} />
-          <Route path='/postlist' exact component={PostList} />
-        </ConnectedRouter>
-        {/* 로그인 상태에서만 표시 */}
-        <Permit>
-          <Footer></Footer>
-        </Permit>
-      </Grid>
+      {/* 존재하지 않은 url 입장 방지 Switch */}
+      <ConnectedRouter history={history}>
+        <Grid>
+          <Switch>
+            {/* 세션이 있고 파이어베이스 로그인 상태이면 포스트 리스트로 이동 */}
+            <Route path='/' exact component={Login} />
+            <Route path='/signup' exact component={Signup} />
+            <Route path='/postlist' exact component={PostList} />
+            <Route path='/write' exact component={PostWrite} />
+            <Route path='/write/:id' exact component={PostWrite} />
+            <Route path='/information' exact component={Information} />
+            {/* 로그인 상태에서만 표시 */}
+            <Route component={NotFound} />
+          </Switch>
+          <Permit>
+            <Footer></Footer>
+          </Permit>
+        </Grid>
+      </ConnectedRouter>
     </React.Fragment >
   );
 };

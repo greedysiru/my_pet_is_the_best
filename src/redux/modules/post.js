@@ -37,7 +37,7 @@ const initialPost = {
     image_url: "https://mean0images.s3.ap-northeast-2.amazonaws.com/5.jpeg",
     contents: "더미컨텐츠 - post 모듈",
     comment_cnt: 0,
-    insert_dt: "2021-03-29 10:00:00",
+    insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
     like: 0,
   }
 };
@@ -75,6 +75,37 @@ const getPostFB = () => {
   };
 };
 
+// 포스트 작성
+const addPostFB = (contents = "") => {
+  return function (dispatch, getState, { history }) {
+    const postDB = firestore.collection("post");
+
+    const _user = getState().user.user;
+    const user_info = {
+      user_name: _user.user_name,
+      user_id: _user.uid,
+      user_profile: _user.user_profile,
+    };
+
+    const _post = {
+      ...initialPost,
+      contents: contents,
+      insert_dt: moment().format("YYYY-MM-DD hh:mm:ss")
+    };
+    console.log(_post);
+
+    postDB.add({ ...user_info, ..._post }).then((doc) => {
+      let post = { user_info, ..._post, id: doc.id };
+      dispatch(addPost(post));
+      history.replace("/postlist");
+      console.log(post);
+    }).catch((err) => {
+      window.alert('post 작성에 실패했습니다. 다시 시도해주세요.')
+      console.log('post 작성 실패', err);
+    });
+  };
+};
+
 // Reducer
 export default handleActions(
   {
@@ -92,6 +123,7 @@ export default handleActions(
     }),
 
     [ADD_POST]: (state, action) => produce(state, (draft) => {
+      draft.list.unshift(action.payload.post);
     })
   },
   initialState
@@ -102,6 +134,7 @@ export default handleActions(
 // Actino Creators export
 const actionCreators = {
   getPostFB,
+  addPostFB,
   setPost,
 };
 

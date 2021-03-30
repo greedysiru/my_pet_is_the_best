@@ -7,6 +7,9 @@ import { Grid, Text, Input, Button } from "../elements";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
+// 이메일 체크
+import { emailCheck } from '../shared/check';
+
 // 회원가입 페이지
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -26,10 +29,10 @@ const Signup = (props) => {
       return;
     }
 
-    // if (!emailCheck(id)) {
-    //   window.alert('이메일 형식이 맞지 않습니다.');
-    //   return;
-    // }
+    if (!emailCheck(id)) {
+      window.alert('이메일 형식이 맞지 않습니다.');
+      return;
+    }
 
     if (pwd !== pwd_check) {
       window.alert('패스워드와 패스워드 확인이 일치하지 않습니다.');

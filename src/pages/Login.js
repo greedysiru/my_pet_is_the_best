@@ -7,6 +7,9 @@ import { Text, Input, Grid, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 
+// 이메일 체크
+import { emailCheck } from '../shared/check';
+
 // 로그인 페이지
 const Login = (props) => {
   // 액션 생성
@@ -25,10 +28,10 @@ const Login = (props) => {
       return;
     }
 
-    // if (!emailCheck(id)) {
-    //   window.alert('이메일 형식이 맞지 않습니다.');
-    //   return;
-    // }
+    if (!emailCheck(id)) {
+      window.alert('이메일 형식이 맞지 않습니다.');
+      return;
+    }
 
     dispatch(userActions.loginFB(id, pwd));
   }
