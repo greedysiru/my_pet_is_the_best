@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // 메모이제이션을 하여 최적화
 const Post = React.memo((props) => {
   const post_list = useSelector((state) => state.post.list);
+  console.log(post_list)
   return (
     <React.Fragment>
       <Grid >
@@ -53,11 +54,11 @@ Post.defaultProps = {
   // 사용자 정보
   user_info: {
     user_name: "siru",
-    user_profile: "",
+    user_profile: "https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg",
   },
   // 포스트 정보
   post_info: {
-    image_url: "",
+    image_url: "https://mean0images.s3.ap-northeast-2.amazonaws.com/5.jpeg",
     contents: "더미컨텐츠 - Post 컴포넌트",
     comment_cnt: 0,
     insert_dt: "2021-03-29 10:00:00",

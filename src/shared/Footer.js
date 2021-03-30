@@ -16,8 +16,8 @@ const Footer = (props) => {
 
   return (
     <React.Fragment>
-      <FooterWrap>
-        <Grid is_flex center padding="4px 16px" >
+      {/* <ElFooter>
+        <Grid is_flex center padding="4px 16px">
           <Grid center size="30px">
             <FiHome />
           </Grid>
@@ -31,20 +31,19 @@ const Footer = (props) => {
             <FiUser />
           </Grid>
         </Grid>
-      </FooterWrap>
+      </ElFooter> */}
     </React.Fragment>
   )
 }
 
 Footer.defaultProps = {}
 
-const FooterWrap = styled.div`
+const ElFooter = styled.div`
   display:flex;
   width: 100%;
-  background-color: white;
   position: fixed;
-  bottom:0;
-  left:0;
+  left: 0;
+  bottom :0;
 `;
 
 export default Footer;
