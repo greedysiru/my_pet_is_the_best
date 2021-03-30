@@ -13,9 +13,12 @@ import PostList from "../pages/PostList";
 import PostWrite from '../pages/PostWrite';
 import Information from '../pages/Information';
 import NotFound from '../pages/NotFound';
+import Notification from '../pages/Notifications';
+import PostDetail from '../pages/PostDetail';
 
+// Components
+import Footer from '../components/Footer';
 // shared
-import Footer from './Footer';
 import Permit from './Permit';
 
 // elements
@@ -53,9 +56,10 @@ function App() {
             <Route path='/signup' exact component={Signup} />
             <Route path='/postlist' exact component={PostList} />
             <Route path='/write' exact component={PostWrite} />
-            <Route path='/write/:id' exact component={PostWrite} />
+            <Route path='/post/:id' exact component={PostDetail} />
             <Route path='/information' exact component={Information} />
-            {/* 로그인 상태에서만 표시 */}
+            <Route path="/noti" exact component={Notification} />
+            {/* 없는 주소 */}
             <Route component={NotFound} />
           </Switch>
           <Permit>
