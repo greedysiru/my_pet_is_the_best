@@ -32,10 +32,6 @@ const Login = (props) => {
 
     dispatch(userActions.loginFB(id, pwd));
   }
-
-
-
-
   return (
     <React.Fragment>
       <Grid padding="16px">

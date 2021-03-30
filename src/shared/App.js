@@ -44,7 +44,6 @@ function App() {
       <Grid>
         <ConnectedRouter history={history}>
           {/* 세션이 있고 파이어베이스 로그인 상태이면 포스트 리스트로 이동 */}
-          {is_session && is_login ? history.push('/postlist') : history.push('/')}
           <Route path='/' exact component={Login} />
           <Route path='/signup' exact component={Signup} />
           <Route path='/postlist' exact component={PostList} />

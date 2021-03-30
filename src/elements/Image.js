@@ -13,18 +13,19 @@ const Image = (props) => {
   // 아바타 이미지
   if (shape === 'avatar') {
     return (
+      <ImagaeAvatar {...styles}></ImagaeAvatar>
+    )
+  }
+
+  // 포스트 이미지
+  if (shape === 'post') {
+    return (
       <AspectOutter>
         <AspectInner {...styles} ></AspectInner>
       </AspectOutter>
     )
   }
 
-  // 기본 이미지
-  return (
-    <React.Fragment>
-      <ImageDefault {...styles} ></ImageDefault>
-    </React.Fragment>
-  )
 }
 
 // 기본 설정
@@ -36,22 +37,20 @@ Image.defaultProps = {
 
 // 기본 이미지 styled-components
 const ImageDefault = styled.div`
-    --size: ${(props) => props.size}px;
-    width: var(--size);
-    height: var(--size);
-    background-image: url("${(props) => props.src}");
-    background-size: cover;
-    border-radius: 10%;
+  --size: ${(props) => props.size}px;
+  width: var(--size);
+  height: var(--size);
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
 `;
 
-// 아바타 이미지를 감싸는 요소
+
+// 이미지를 감싸는 요소
 const AspectOutter = styled.div`
   width: 100%;
   min-width: 250px;
-  border-radius: 10%;
 `;
 
-// 아바타 이미지 안
 // 비율유지를 위한 padding 기본값 설정
 const AspectInner = styled.div`
   position: relative;
@@ -59,6 +58,17 @@ const AspectInner = styled.div`
   overflow: hidden;
   background-image: url("${(props) => props.src}");
   background-size: cover;
+`;
+
+const ImagaeAvatar = styled.div`
+    --size: ${(props) => props.size}px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 15%;
+
+    background-image: url("${(props) => props.src}");
+    background-size: cover;
+    margin: 4px;
 `;
 
 export default Image;
