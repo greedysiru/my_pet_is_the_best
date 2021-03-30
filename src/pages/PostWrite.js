@@ -34,6 +34,7 @@ const PostWrite = (props) => {
     console.log(contents)
     dispatch(postActions.addPostFB(contents));
   }
+  const preview = useSelector((state) => state.image.preview);
   return (
     <React.Fragment>
       <Grid padding="16px">
@@ -48,8 +49,8 @@ const PostWrite = (props) => {
         <Grid padding="16px">
           <Text margin="0px" size="24px" bold>미리보기</Text>
         </Grid>
-
-        <Image shape="post" />
+        {/* 프리뷰 */}
+        <Image shape="post" src={preview ? preview : "http://via.placeholder.com/400x300"} />
       </Grid>
       <Grid padding="16px">
         <Input value={contents} _onChange={changeContents} label="게시글 내용" placeholder="게시글 작성" multiLine />

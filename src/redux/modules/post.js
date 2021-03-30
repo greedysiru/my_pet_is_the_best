@@ -2,6 +2,8 @@
 
 // 리덕스
 import { createAction, handleActions } from "redux-actions";
+import { actionCreators as imageActions } from './image';
+
 
 // 불변성 관리
 import { produce } from "immer";
@@ -76,36 +78,54 @@ const getPostFB = () => {
 };
 
 // 포스트 작성
-const addPostFB = (contents = "") => {
+const addPostFB = (contents = "",) => {
   return function (dispatch, getState, { history }) {
-    const postDB = firestore.collection("post");
-
+    const postDB = firestore.collection('post');
     const _user = getState().user.user;
+
     const user_info = {
       user_name: _user.user_name,
       user_id: _user.uid,
-      user_profile: _user.user_profile,
-    };
+      user_profile: _user.user_profile
 
+    }
     const _post = {
       ...initialPost,
       contents: contents,
-      insert_dt: moment().format("YYYY-MM-DD hh:mm:ss")
+      insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
     };
-    console.log(_post);
+    // 이미지 프리뷰 접근
+    const _image = getState().image.preview;
+    // 파일이름은 유저의 id와 현재시간을 넣어서 구분
+    const _upload = storage.ref(`images/${user_info.user_id}_${new Date().getTime()}`).putString(_image, 'data_url');
 
-    postDB.add({ ...user_info, ..._post }).then((doc) => {
-      let post = { user_info, ..._post, id: doc.id };
-      dispatch(addPost(post));
-      history.replace("/postlist");
-      console.log(post);
-    }).catch((err) => {
-      window.alert('post 작성에 실패했습니다. 다시 시도해주세요.')
-      console.log('post 작성 실패', err);
+    _upload.then(snapshot => {
+      snapshot.ref.getDownloadURL().then(url => {
+        console.log(url);
+
+        return url;
+      }).then(url => {
+        // ~~~.add({추가할 정보})
+        postDB
+          .add({ ...user_info, ..._post, image_url: url })
+          .then((doc) => {
+            let post = { user_info, ..._post, id: doc.id, image_url: url };
+            dispatch(addPost(post));
+            // 업로드 후 포스트 리스트 이동
+            history.replace('/postlist');
+
+            dispatch(imageActions.setPreview(null));
+          }).catch((err) => {
+            window.alert('포스트 작성 오류가 발생했습니다.');
+            console.log('post 작성에 실패했습니다.', err);
+          });
+      }).catch((err) => {
+        window.alert('이미지 업로드 오류가 발생했습니다.');
+        console.log('이미지 업로드 오류'.err);
+      })
     });
-  };
-};
-
+  }
+}
 // Reducer
 export default handleActions(
   {

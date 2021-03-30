@@ -25,7 +25,7 @@ const Upload = (props) => {
     // 읽기가 끝나면 발생하는 이벤트 핸들러
     reader.onloadend = () => {
       // reader.result는 파일의 컨텐츠
-      console.log(reader.result);
+      dispatch(imageActions.setPreview(reader.result));
     };
   };
 
