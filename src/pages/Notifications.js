@@ -1,10 +1,13 @@
 import React from 'react';
+
+// 최소 단위 컴포넌트
 import { Grid } from '../elements';
 import Card from '../components/Card';
 
 import { realtime } from '../shared/firebase';
 import { useSelector } from 'react-redux';
 
+// 알림 리스트
 const Notification = (props) => {
   const user = useSelector(state => state.user.user);
   const [noti, setNoti] = React.useState([]);
@@ -14,7 +17,6 @@ const Notification = (props) => {
     }
 
     const notiDB = realtime.ref(`noti/${user.uid}/list`);
-
     const _noti = notiDB.orderByChild('insert_dt');
 
     _noti.once('value', snapshot => {
@@ -24,7 +26,6 @@ const Notification = (props) => {
         let _noti_list = Object.keys(_data).reverse().map(s => {
           return _data[s];
         })
-        console.log(_noti_list);
         setNoti(_noti_list);
       }
     })

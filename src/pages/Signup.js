@@ -72,8 +72,8 @@ const Signup = (props) => {
         <Grid padding="16px 0px">
           <Input
             type="password"
-            label="비밀번호"
-            placeholder="비밀번호를 입력해주세요."
+            label="패스워드"
+            placeholder="패스워드를 입력해주세요."
             _onChange={(e) => {
               setPwd(e.target.value);
             }}
@@ -82,9 +82,9 @@ const Signup = (props) => {
 
         <Grid padding="16px 0px">
           <Input
-            label="비밀번호 확인"
+            label="패스워드 확인"
             type="password"
-            placeholder="비밀번호를 다시 입력해주세요."
+            placeholder="패스워드를 다시 입력해주세요."
             _onChange={(e) => {
               setPwdCheck(e.target.value);
             }}

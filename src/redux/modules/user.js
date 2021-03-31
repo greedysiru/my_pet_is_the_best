@@ -3,7 +3,7 @@ import { createAction, handleActions } from "redux-actions";
 // 불변성 관리 패키지
 import { produce } from "immer";
 // 쿠키 함수들 가져오기
-import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
+import { setCookie, deleteCookie } from "../../shared/Cookie";
 
 // Firebase 연동
 import { auth } from '../../shared/firebase';
@@ -70,6 +70,7 @@ const signupFB = (id, pwd, user_name) => {
             user_profile: '',
             uid: user.user.uid
           }));
+          window.alert('회원가입이 완료되었습니다.')
           // 회원가입 정상 처리 후 로그인 페이지로 이동
           history.push('/');
         }).catch((error) => {

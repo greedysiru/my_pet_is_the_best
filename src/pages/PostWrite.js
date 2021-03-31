@@ -9,38 +9,66 @@ import Upload from '../shared/Upload';
 // 리덕스, 모듈
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
-// import { actionCreators as imageActions } from '../redux/modules/image';
-
-// 페이지 이동을 위한 history
-import { history } from '../redux/configureStore';
+import { actionCreators as imageActions } from '../redux/modules/image';
 
 // 포스트를 작성하는 페이지
 const PostWrite = (props) => {
   const dispatch = useDispatch();
   // 로그인 여부
   const is_login = useSelector((state) => state.user.is_login);
-  // 로그인 상태가 아니면 로그인 창으로
-  // if (!is_login) {
-  //   history.replace('/');
-  // }
-  // 작성 컨텐츠 hook
+  // 프리뷰 정보
+  const preview = useSelector((state) => state.image.preview);
+  const post_list = useSelector((state) => state.post.list);
+
+  // 파라미터로 넘겨받은 아이디
+  const post_id = props.match.params.id;
+  // 수정인지 아닌지
+  const is_edit = post_id ? true : false;
+
+  const { history } = props;
+
+  // 수정인 경우 기존의 내용을 담기
+  let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
+
   const [contents, setContents] = React.useState('');
+
+  // 페이지 권한 여부 체크
+  React.useEffect(() => {
+    if (is_edit && !_post) {
+      window.alert('페이지 권한이 없습니다.');
+      history.goBack();
+
+      return;
+    }
+    if (is_edit) {
+      dispatch(imageActions.setPreview(_post.image_url));
+    }
+  }, []);
+
   // text 기록
   const changeContents = (e) => {
     setContents(e.target.value);
   }
+
   // 파이어베이스에 기록
   const addPost = () => {
-    console.log(contents)
     dispatch(postActions.addPostFB(contents));
   }
-  const preview = useSelector((state) => state.image.preview);
+  // 수정하기
+  const editPost = () => {
+    dispatch(postActions.editPostFB(post_id, { contents: contents }));
+  }
+  // 로그인 하지 않은 상태
+  if (!is_login) {
+    window.alert('페이지 권한이 없습니다.');
+    history.push("/");
+  }
   return (
     <React.Fragment>
       <Grid padding="16px">
         <Text margin="0px" size="36px" bold>
-          {/* {is_edit ? '게시글 수정' : '게시글 작성'} */}
-          게시글 작성
+          {/* 게시글 수정/작성 */}
+          {is_edit ? '게시글 수정' : '게시글 작성'}
         </Text>
         <Upload />
       </Grid>
@@ -56,12 +84,12 @@ const PostWrite = (props) => {
         <Input value={contents} _onChange={changeContents} label="게시글 내용" placeholder="게시글 작성" multiLine />
       </Grid>
       <Grid padding="16px">
-        {/* {is_edit ? (
+        {is_edit ? (
           <Button text="게시글 수정" _onClick={editPost} ></Button>
         ) : (
-          <Button text="게시글 작성" _onClick={addPost} ></Button>
-        )} */}
-        <Button text="게시글 작성" _onClick={addPost} ></Button>
+          <Button margin="0px 0px 30px 0px" text="게시글 작성" _onClick={addPost} ></Button>
+        )}
+
       </Grid>
     </React.Fragment>
   )

@@ -6,11 +6,12 @@ import { history } from '../redux/configureStore';
 // 알림 카드
 const Card = (props) => {
   const { image_url, user_name, post_id } = props;
-
+  console.log(image_url, user_name, post_id)
   return (
+    // 해당 포스트 아이디로 넘어가도록 한다.
     <Grid _onClick={() => { history.push(`/post/${post_id}`) }} padding="16px" is_flex bg="#ffffff" margin="8px 0px">
       <Grid width="auto" margin="0px 8px 0px 0px">
-        <Image size={85} shape="squre" src={image_url} />
+        <Image size={85} src={image_url} />
       </Grid>
       <Grid>
         <Text>

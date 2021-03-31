@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './App.scss';
 
 // Router
 import { Route, Switch } from 'react-router-dom';
@@ -35,27 +35,28 @@ import { apiKey } from './firebase'
 function App() {
   const dispatch = useDispatch();
   const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
-  // 세션
-  const is_session = sessionStorage.getItem(_session_key) ? true : false;
   // 세션이 있으면 파이어베이스 로그인 확인
   React.useEffect(() => {
     if (is_session) {
       dispatch(userActions.loginCheckFB());
     }
   }, []);
+  // 세션
+  const is_session = sessionStorage.getItem(_session_key) ? true : false;
   const is_login = useSelector(state => state.user.is_login);
   return (
     <React.Fragment>
       {/* Router */}
       {/* 존재하지 않은 url 입장 방지 Switch */}
       <ConnectedRouter history={history}>
-        <Grid>
+        <Grid margin="0px 0px 30px 0px">
           <Switch>
             {/* 세션이 있고 파이어베이스 로그인 상태이면 포스트 리스트로 이동 */}
             <Route path='/' exact component={Login} />
             <Route path='/signup' exact component={Signup} />
             <Route path='/postlist' exact component={PostList} />
             <Route path='/write' exact component={PostWrite} />
+            <Route path='/write/:id' exact component={PostWrite} />
             <Route path='/post/:id' exact component={PostDetail} />
             <Route path='/information' exact component={Information} />
             <Route path="/noti" exact component={Notification} />
@@ -65,7 +66,7 @@ function App() {
           <Permit>
             <Footer></Footer>
           </Permit>
-        </Grid>
+        </Grid >
       </ConnectedRouter>
     </React.Fragment >
   );

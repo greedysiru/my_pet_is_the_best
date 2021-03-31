@@ -1,4 +1,3 @@
-import { size } from 'lodash';
 import React from 'react';
 
 import styled from 'styled-components';
@@ -43,6 +42,7 @@ Grid.defaultProps = {
 
 // Grid의 styled-components 설정
 const GridBox = styled.div`
+  color: black;
   width: ${(props) => props.width};
   height: 100%;
   box-sizing: border-box;

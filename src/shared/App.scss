@@ -1,0 +1,7 @@
+// 스크롤바 안보이게 하기
+body{
+   -ms-overflow-style: none;
+   } 
+::-webkit-scrollbar { 
+  display: none; 
+}

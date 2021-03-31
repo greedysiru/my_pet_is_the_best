@@ -16,29 +16,6 @@ const uploading = createAction(UPLOADING, (uploading) => ({ uploading }));
 const uploadImage = createAction(UPLOAD_IMAGE, (image_url) => ({ image_url }));
 const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
 
-// 파이어베이스 스토리지에 업로드
-function uploadImageFB(image) {
-  return function (dispatch, getState, { history }) {
-
-    dispatch(uploading(true));
-
-    console.log(`images/${new Date().getTime()}_${image.name}`);
-    const _upload = storage.ref(`images/${image.name}`).put(image);
-
-    // 업로드
-    _upload.then((snapshot) => {
-      console.log(snapshot);
-
-      // 업로드한 파일의 다운로드 경로
-      snapshot.ref.getDownloadURL().then((url) => {
-        console.log(url);
-        dispatch(uploadImage(url));
-      });
-    }).catch(err => {
-      dispatch(uploading(false));
-    });
-  };
-}
 
 // initial state
 const initialState = {
@@ -47,6 +24,25 @@ const initialState = {
   uploading: false,
   preview: null,
 };
+
+// 파이어베이스 스토리지에 업로드
+const uploadImageFB = (image) => {
+  return function (dispatch, getState, { history }) {
+    dispatch(uploading(true));
+    const _upload = storage.ref(`images/${image.name}`).put(image);
+
+    _upload.then((snapshot) => {
+      console.log(snapshot);
+      dispatch(uploading(false));
+      snapshot.ref.getDownloadURL().then((url) => {
+        dispatch(uploadImage(url));
+        console.log(url);
+      });
+    });
+  };
+};
+
+
 
 // reducer
 export default handleActions(

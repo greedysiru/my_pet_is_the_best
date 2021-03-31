@@ -6,7 +6,8 @@ import { Text, Input, Grid, Button } from "../elements";
 // 리덕스
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
-
+// 히스토리
+import { history } from '../redux/configureStore';
 // 이메일 체크
 import { emailCheck } from '../shared/check';
 
@@ -72,6 +73,7 @@ const Login = (props) => {
             login()
           }}
         ></Button>
+        <Button text="회원가입하기" _onClick={() => { history.push("/signup") }}></Button>
       </Grid>
     </React.Fragment>
   );
