@@ -27,7 +27,8 @@ const Post = React.memo((props) => {
                 width="auto"
                 margin="4px"
                 padding="4px"
-                _onClick={() => {
+                _onClick={(e) => {
+                  e.stopPropagation();
                   history.push(`/write/${props.id}`);
                 }}
               >수정 및 삭제</Button>
