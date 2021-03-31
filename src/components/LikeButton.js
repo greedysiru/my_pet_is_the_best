@@ -22,8 +22,6 @@ const LikeButton = (props) => {
   const likeCheck = () => {
     // const likeDB = realtime.ref(`like/${user_id}`);
     // likeDB.update({ check: true })
-    console.log('like')
-    console.log(props)
     dispatch(likeActions.addLikeFB(user_id, post_id));
     // 좋아요 표시
     realtime.ref(`likecheck/${user_id}/${post_id}`).update({ like_check: false });
@@ -33,7 +31,6 @@ const LikeButton = (props) => {
   const deleteLike = () => {
     // const likeDB = realtime.ref(`like/${user_id}`);
     // likeDB.update({ check: true })
-    console.log('delete like')
     dispatch(likeActions.deleteLikeFB(user_id, post_id));
     // 좋아요 취소 적용
     realtime.ref(`likecheck/${user_id}/${post_id}`).update({ like_check: true });

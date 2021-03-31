@@ -79,7 +79,6 @@ const editPostFB = (post_id = null, post = {}) => {
 
       _upload.then(snapshot => {
         snapshot.ref.getDownloadURL().then(url => {
-          console.log(url);
 
           return url;
         }).then(url => {
@@ -158,7 +157,6 @@ const getOnePostFB = (id) => {
 
     postDB.doc(id).get().then(doc => {
       let _post = doc.data()
-      console.log(_post)
       if (_post === undefined) {
         return null;
       }
@@ -189,7 +187,6 @@ const addPostFB = (contents = "",) => {
       user_id: _user.uid,
       user_profile: _user.user_profile,
     }
-    console.log(user_info)
     const _post = {
       ...initialPost,
       contents: contents,
@@ -221,11 +218,9 @@ const addPostFB = (contents = "",) => {
             dispatch(imageActions.setPreview(null));
           }).catch((err) => {
             window.alert('포스트 작성 오류가 발생했습니다.');
-            console.log('post 작성에 실패했습니다.', err);
           });
       }).catch((err) => {
         window.alert('이미지 업로드 오류가 발생했습니다.');
-        console.log('이미지 업로드 오류'.err);
       })
     });
   }

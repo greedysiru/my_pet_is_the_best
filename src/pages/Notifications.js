@@ -55,9 +55,6 @@ const Notification = (props) => {
 
   );
 
-  console.log(noti)
-  console.log(like)
-
 
 
   return (

@@ -63,7 +63,6 @@ const addCommentFB = (post_id, contents) => {
 
       // 업데이트 하기
       postDB.doc(post_id).update({ comment_cnt: increment }).then((_post => {
-        console.log(comment)
         dispatch(addComment(post_id, comment));
 
         if (post) {
@@ -82,7 +81,6 @@ const addCommentFB = (post_id, contents) => {
             time: comment.time
           }, (err) => {
             if (err) {
-              console.log('알림 저장 실패');
             } else {
               const notiDB = realtime.ref(`noti/${post.user_info.user_id}`)
 
@@ -100,21 +98,18 @@ const getCommentFB = (post_id = null) => {
     if (!post_id) {
       return;
     }
-    console.log(post_id)
     const commentDB = firestore.collection('comment');
     commentDB
       .where('post_id', "==", post_id)
       .orderBy('insert_dt', 'desc')
       .get()
       .then((docs) => {
-        console.log(docs)
         let list = [];
         docs.forEach((doc) => {
           list.push({ ...doc.data(), id: doc.id });
         })
         dispatch(setComment(post_id, list));
       }).catch(err => {
-        console.log('댓글 정보를 가져올 수 없습니다.', err);
       });
   };
 };
@@ -128,7 +123,6 @@ export default handleActions(
 
     }),
     [ADD_COMMENT]: (state, action) => produce(state, (draft) => {
-      console.log(draft.list[action.payload.post_id])
       draft.list[action.payload.post_id].unshift(action.payload.comment);
     }),
     [LOADING]: (state, action) =>

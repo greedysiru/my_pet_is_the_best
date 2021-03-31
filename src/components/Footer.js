@@ -2,8 +2,12 @@ import React from "react";
 import styled from 'styled-components';
 
 // react-icons
-import { FiHome, FiUser, FiEdit } from "react-icons/fi";
+import {
+  AiOutlineHome, AiFillHome,
+  AiOutlineEdit, AiFillEdit,
+  AiOutlineUser, AiFillUser,
 
+} from "react-icons/ai";
 // 최소 단위 컴포넌트 불러오기
 import { Grid, Text, Button } from "../elements";
 
@@ -15,25 +19,31 @@ import { history } from '../redux/configureStore';
 
 // 화면 하단의 컨텐츠를 표시하는 컴포넌트
 const Footer = (props) => {
-
+  const [slected, setSelected] = React.useState('false');
 
   return (
     <React.Fragment>
       <FooterWrap>
-        <Grid is_flex center padding="2px" >
-          <Grid center size="30px" padding="5px" _onClick={() => { history.push("/postlist") }}>
-            <FiHome />
+        <Grid is_flex center>
+          <Grid center size="32px" padding="7px" _onClick={() => {
+            history.push("/postlist")
+          }}>
+            <AiOutlineHome />
           </Grid>
-          <Grid center size="30px" padding="5px" _onClick={() => { history.push("/write") }}>
-            <FiEdit />
+          <Grid center size="32px" padding="9px" _onClick={() => {
+            history.push("/write")
+          }}>
+            <AiOutlineEdit />
           </Grid>
-          <Grid size="30px" >
+          <Grid size="32px">
             <NotiBadge _onClick={() => {
               history.push('/noti');
             }} />
           </Grid>
-          <Grid center size="30px" padding="5px" _onClick={() => { history.push("/information") }}>
-            <FiUser />
+          <Grid center size="32px" padding="6px" _onClick={() => {
+            history.push("/information")
+          }}>
+            <AiOutlineUser />
           </Grid>
         </Grid>
       </FooterWrap>

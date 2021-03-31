@@ -5,7 +5,7 @@ import Grid from '../elements/Grid'
 
 // 알림뱃지 가져오기
 import { Badge } from '@material-ui/core';
-import { FiBell } from "react-icons/fi";
+import { AiOutlineBell, AiFillBell, } from "react-icons/ai";
 // 파이어베이스 리얼타임 데이터베이스
 import { realtime } from '../shared/firebase';
 
@@ -32,6 +32,7 @@ const NotiBadge = (props) => {
     likeDB.update({ check: true })
     props._onClick()
   }
+  const [selected, setSelected] = React.useState(false);
 
   React.useEffect(() => {
     const notiDB = realtime.ref(`noti/${user_id}`);
@@ -54,7 +55,7 @@ const NotiBadge = (props) => {
     <React.Fragment>
       <Grid>
         <Badge color="secondary" variant="dot" invisible={is_check && is_read} onClick={notiCheck}>
-          <FiBell />
+          {selected ? <AiFillBell /> : (<AiOutlineBell />)}
         </Badge>
       </Grid>
     </React.Fragment>

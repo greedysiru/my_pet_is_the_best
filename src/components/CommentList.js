@@ -12,7 +12,6 @@ const CommentList = (props) => {
   const dispatch = useDispatch();
   // 댓글 리스트 가져오기
   const comment_list = useSelector(state => state.comment.list);
-  console.log(comment_list)
   const { post_id } = props;
 
   // 내 댓글을 제외한 정보 가져오기
@@ -46,7 +45,6 @@ export default CommentList;
 
 // 댓글을 구성하는 정보가 담긴 컴포넌트
 const CommentItem = (props) => {
-  console.log(props)
   const { user_profile, user_name, user_id, post_id, time, contents } = props;
   return (
     <Grid is_flex>
