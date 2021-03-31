@@ -12,7 +12,6 @@ import LikeButton from '../components/LikeButton';
 // 사용자들이 포스트하는 컴포넌트
 // 메모이제이션을 하여 최적화
 const Post = React.memo((props) => {
-  console.log(parseInt(props.like_cnt))
   return (
     <React.Fragment>
       <Grid >

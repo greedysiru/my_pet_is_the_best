@@ -57,8 +57,6 @@ const LikeButton = (props) => {
         const likeCheckDB = realtime.ref(`likecheck/${user_id}/${post_id}`);
         likeCheckDB.on('value', (snapshot) => {
           setIsLike(snapshot.val().like_check);
-          console.log('체크', is_like)
-          console.log(post_id)
           return () => likeCheckDB.off();
         })
       }

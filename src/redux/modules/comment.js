@@ -37,6 +37,7 @@ const addCommentFB = (post_id, contents) => {
     const commentDB = firestore.collection('comment');
     // 리덕스의 유저 정보 가져오기
     const user_info = getState().user.user;
+
     // 댓글 정보
     let comment = {
       post_id: post_id,
@@ -45,6 +46,7 @@ const addCommentFB = (post_id, contents) => {
       user_profile: user_info.user_profile,
       contents: contents,
       time: moment().format('YYYY-MM-DD hh:mm:ss'),
+      insert_dt: moment().valueOf(),
     }
 
 
@@ -66,6 +68,11 @@ const addCommentFB = (post_id, contents) => {
 
         if (post) {
           dispatch(postActions.editPost(post_id, { comment_cnt: parseInt(post.comment_cnt) + 1, }));
+          // 포스트작성자와 유저가 같으면 알림 하지 않는다.
+          if (post.user_info.user_id === user_info.uid) {
+            return
+          }
+
           const _noti_item = realtime.ref(`noti/${post.user_info.user_id}/list`).push();
 
           _noti_item.set({

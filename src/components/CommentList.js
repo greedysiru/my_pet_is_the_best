@@ -46,6 +46,7 @@ export default CommentList;
 
 // 댓글을 구성하는 정보가 담긴 컴포넌트
 const CommentItem = (props) => {
+  console.log(props)
   const { user_profile, user_name, user_id, post_id, time, contents } = props;
   return (
     <Grid is_flex>

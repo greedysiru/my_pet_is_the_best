@@ -16,19 +16,6 @@ import firebase from 'firebase/app';
 // 리덕스
 import { actionCreators as postActions } from './post';
 
-// Actions
-const ADD_LIKE = "ADD_LIKE";
-const DELETE_LIKE = "DELETE_LIKE";
-
-// initial State
-const initialState = {
-  list: {},
-};
-
-// Action Creator
-const addLike = createAction(ADD_LIKE, (post_id, like_cnt) => ({ post_id, like_cnt }));
-const deleteLike = createAction(DELETE_LIKE, (post_id, like_cnt) => ({ post_id, like_cnt }));
-
 
 const addLikeFB = (user_id, post_id) => {
   return function (dispatch, getState, { history }) {
@@ -44,12 +31,14 @@ const addLikeFB = (user_id, post_id) => {
     const increment = firebase.firestore.FieldValue.increment(1);
     postDB.doc(post_id).update({ like_cnt: increment }).then((_post => {
       console.log(post_id);
-      dispatch(addLike(post_id, like_cnt));
 
       if (post) {
 
         dispatch(postActions.editPost(post_id, { like_cnt: parseInt(post.like_cnt) + 1, }));
-
+        // 자기 게시물 좋아요는 기록하지 않기
+        if (post.user_info.user_id === user_info.uid) {
+          return
+        }
         // 리얼타임 데이터베이스
         const _like_item = realtime.ref(`like/${post.user_info.user_id}/list`).push();
 
@@ -86,11 +75,11 @@ const deleteLikeFB = (user_id, post_id) => {
     const increment = firebase.firestore.FieldValue.increment(-1);
     postDB.doc(post_id).update({ like_cnt: increment }).then((_post => {
       console.log(post_id);
-      dispatch(deleteLike(post_id, like_cnt));
 
       if (post) {
 
         dispatch(postActions.editPost(post_id, { like_cnt: parseInt(post.like_cnt) - 1, }));
+
 
         // 리얼타임 데이터베이스
         const _like_item = realtime.ref(`like/${post.user_info.user_id}/list`).push();
@@ -114,25 +103,9 @@ const deleteLikeFB = (user_id, post_id) => {
   }
 }
 
-export default handleActions(
-  {
-    [ADD_LIKE]: (state, action) => produce(state, (draft) => {
-      console.log(draft.list[action.payload.post_id])
-      draft.list[action.payload.post_id].unshift(action.payload.like_cnt);
-    }),
-    [DELETE_LIKE]: (state, action) => produce(state, (draft) => {
-      console.log(draft.list[action.payload.post_id])
-      draft.list[action.payload.post_id].unshift(action.payload.like_cnt);
-    }),
-  },
-  initialState
-);
-
 
 const actionCreators = {
-  addLike,
   addLikeFB,
-  deleteLike,
   deleteLikeFB,
 };
 
