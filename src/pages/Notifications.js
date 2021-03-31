@@ -1,7 +1,7 @@
 import React from 'react';
 
 // 최소 단위 컴포넌트
-import { Grid } from '../elements';
+import { Grid, Button } from '../elements';
 import Card from '../components/Card';
 
 import { realtime } from '../shared/firebase';
@@ -14,6 +14,8 @@ const Notification = (props) => {
   const [noti, setNoti] = React.useState([]);
   // 좋아요 알림
   const [like, setLike] = React.useState([]);
+  // 토글
+  const [toggle, setToggle] = React.useState(true);
   React.useEffect(() => {
     if (!user) {
       return;
@@ -51,29 +53,35 @@ const Notification = (props) => {
 
   }, [user]
 
-  console.log(noti)
-  console.log(like)
   );
 
+  console.log(noti)
+  console.log(like)
 
 
 
   return (
     <React.Fragment>
-      <Grid padding="16px" bg="#EFF6FF">
-        {noti.map((n, idx) => {
-          return (
-            <Card key={`noti_${idx}`} {...n} />
-          )
-        })}
-      </Grid>
-      <Grid padding="16px" bg="#EFF6FF">
+      {toggle ? (<Grid padding="16px" bg="#EFF6FF">
         {like.map((n, idx) => {
           return (
-            <Card key={`like_${idx}`} {...n} />
+            <Card key={`like_${idx}`} type="like" {...n} />
           )
         })}
-      </Grid>
+      </Grid>)
+        :
+        (<Grid padding="16px" bg="#EFF6FF">
+          {noti.map((n, idx) => {
+            return (
+              <Card key={`noti_${idx}`} type="noti" {...n} />
+            )
+          })}
+        </Grid>)
+      }
+
+
+      {toggle ? (<Button text="좋아요" is_float _onClick={() => { setToggle(false) }}></Button>) :
+        (<Button text="댓글" is_float _onClick={() => { setToggle(true) }}></Button>)}
     </React.Fragment>
   )
 }

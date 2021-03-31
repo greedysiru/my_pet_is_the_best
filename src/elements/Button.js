@@ -52,20 +52,21 @@ const ElButton = styled.button`
 
 // 플로팅 버튼 styled-components
 const FloatButton = styled.button`
-  width: 50px;
+  width: 120px;
   height: 50px;
   background-color: #212121;
   color: #ffffff;
   box-sizing: border-box;
-  font-size: 36px;
+  font-size: 18px;
   font-weight: 800;
   position: fixed;
-  bottom: 50px;
+  bottom: 60px;
   right: 16px;
   text-align: center;
   border: none;
-  border-radius: 50%;
+  border-radius: 10px;
   vertical-align: middle;
+  opacity:0.8;
   `
 
 export default Button;

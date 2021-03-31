@@ -5,8 +5,7 @@ import { history } from '../redux/configureStore';
 
 // 알림 카드
 const Card = (props) => {
-  const { image_url, user_name, post_id } = props;
-  console.log(image_url, user_name, post_id)
+  const { image_url, user_name, post_id, type } = props;
   return (
     // 해당 포스트 아이디로 넘어가도록 한다.
     <Grid _onClick={() => { history.push(`/post/${post_id}`) }} padding="16px" is_flex bg="#ffffff" margin="8px 0px">
@@ -15,7 +14,7 @@ const Card = (props) => {
       </Grid>
       <Grid>
         <Text>
-          <b>{user_name}</b>님이 게시글에 댓글을 남겼습니다.
+          <b>{user_name}</b>님이 게시글에 {type === "like" ? ("좋아요를") : ("댓글을")} 남겼습니다.
         </Text>
       </Grid>
     </Grid>
