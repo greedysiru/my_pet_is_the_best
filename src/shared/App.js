@@ -35,15 +35,14 @@ import { apiKey } from './firebase'
 function App() {
   const dispatch = useDispatch();
   const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+  const is_session = sessionStorage.getItem(_session_key) ? true : false;
   // 세션이 있으면 파이어베이스 로그인 확인
   React.useEffect(() => {
     if (is_session) {
       dispatch(userActions.loginCheckFB());
     }
   }, []);
-  // 세션
-  const is_session = sessionStorage.getItem(_session_key) ? true : false;
-  const is_login = useSelector(state => state.user.is_login);
+
   return (
     <React.Fragment>
       {/* Router */}

@@ -35,8 +35,7 @@ const PostWrite = (props) => {
   // 페이지 권한 여부 체크
   React.useEffect(() => {
     if (is_edit && !_post) {
-      window.alert('페이지 권한이 없습니다.');
-      history.goBack();
+      history.replace('/postlist');
 
       return;
     }
@@ -58,17 +57,27 @@ const PostWrite = (props) => {
   const editPost = () => {
     dispatch(postActions.editPostFB(post_id, { contents: contents }));
   }
+  // 삭제하기
+  const deletePost = () => {
+    console.log(post_id);
+    dispatch(postActions.deletePostFB(post_id));
+  }
   // 로그인 하지 않은 상태
   if (!is_login) {
-    window.alert('페이지 권한이 없습니다.');
-    history.push("/");
+    return (
+      <Grid margin="100px 0px" padding="16px" center>
+        <Text size="32px" bold >안내</Text>
+        <Text size="16px">로그인 인증 정보가 없습니다.</Text>
+        <Button _onClick={() => { history.replace("/"); }}>로그인 하러가기</Button>
+      </Grid>
+    )
   }
   return (
     <React.Fragment>
       <Grid padding="16px">
         <Text margin="0px" size="36px" bold>
           {/* 게시글 수정/작성 */}
-          {is_edit ? '게시글 수정' : '게시글 작성'}
+          {is_edit ? '게시글 수정 / 삭제' : '게시글 작성'}
         </Text>
         <Upload />
       </Grid>
@@ -84,8 +93,10 @@ const PostWrite = (props) => {
         <Input value={contents} _onChange={changeContents} label="게시글 내용" placeholder="게시글 작성" multiLine />
       </Grid>
       <Grid padding="16px">
-        {is_edit ? (
+        {is_edit ? (<Grid is_flex>
           <Button text="게시글 수정" _onClick={editPost} ></Button>
+          <Button text="게시글 삭제" _onClick={deletePost} ></Button>
+        </Grid>
         ) : (
           <Button margin="0px 0px 30px 0px" text="게시글 작성" _onClick={addPost} ></Button>
         )}

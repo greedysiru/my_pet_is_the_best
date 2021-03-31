@@ -69,7 +69,7 @@ const editPostFB = (post_id = null, post = {}) => {
     if (_image === _post.image_url) {
       postDB.doc(post_id).update(post).then(doc => {
         dispatch(editPost(post_id, { ...post }));
-        history.replace('/');
+        history.push('/postlist');
       });
 
       return
@@ -214,6 +214,7 @@ const addPostFB = (contents = "",) => {
           .then((doc) => {
             let post = { user_info, ..._post, id: doc.id, image_url: url };
             dispatch(addPost(post));
+            window.alert('포스트가 업로드 되었습니다.')
             // 업로드 후 포스트 리스트 이동
             history.replace('/postlist');
 
@@ -229,8 +230,25 @@ const addPostFB = (contents = "",) => {
     });
   }
 }
-// Reducer
+// 삭제
+const deletePostFB = (post_id) => {
+  return function (getState, dispatch, { history }) {
+    const docRef = firestore.collection("post").doc(post_id);
 
+    docRef.delete().then(() => {
+      window.alert('해당 포스트가 삭제되었습니다.');
+      window.location.reload();
+
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+
+}
+
+
+
+// Reducer
 export default handleActions(
   {
     [SET_POST]: (state, action) => produce(state, (draft) => {
@@ -275,6 +293,7 @@ const actionCreators = {
   addPostFB,
   editPostFB,
   getOnePostFB,
+  deletePostFB,
 };
 
 export { actionCreators };

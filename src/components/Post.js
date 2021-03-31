@@ -30,7 +30,8 @@ const Post = React.memo((props) => {
                 _onClick={() => {
                   history.push(`/write/${props.id}`);
                 }}
-              >수정</Button>}
+              >수정 및 삭제</Button>
+            }
           </Grid>
         </Grid>
         <Grid>
