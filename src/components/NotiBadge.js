@@ -16,31 +16,44 @@ import { useSelector } from 'react-redux';
 const NotiBadge = (props) => {
   // 읽었는지 안 읽었는지 여부
   const [is_read, setIsRead] = React.useState(true);
+  // 체크 여부
+  const [is_check, setIsCheck] = React.useState(true);
+
   const user_id = useSelector(state => state.user.user.uid);
 
   // 알림체크
   const notiCheck = () => {
+    // 댓글
     const notiDB = realtime.ref(`noti/${user_id}`);
+    // 좋아요
+    const likeDB = realtime.ref(`like/${user_id}`);
     // 읽음으로 표시
     notiDB.update({ read: true })
+    likeDB.update({ check: true })
     props._onClick()
   }
 
   React.useEffect(() => {
     const notiDB = realtime.ref(`noti/${user_id}`);
-
+    const likeDB = realtime.ref(`like/${user_id}`);
     notiDB.on('value', (snapshot) => {
       setIsRead(snapshot.val().read);
     });
+    likeDB.on('value', (snapshot) => {
+      setIsCheck(snapshot.val().check);
+    });
 
-    return () => notiDB.off();
+    return () => {
+      notiDB.off()
+      likeDB.off()
+    };
 
   }, [])
 
   return (
     <React.Fragment>
       <Grid>
-        <Badge color="secondary" variant="dot" invisible={is_read} onClick={notiCheck}>
+        <Badge color="secondary" variant="dot" invisible={is_check && is_read} onClick={notiCheck}>
           <FiBell />
         </Badge>
       </Grid>
