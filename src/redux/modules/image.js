@@ -27,6 +27,7 @@ const initialState = {
 
 // 파이어베이스 스토리지에 업로드
 const uploadImageFB = (image) => {
+
   return function (dispatch, getState, { history }) {
     dispatch(uploading(true));
     const _upload = storage.ref(`images/${image.name}`).put(image);

@@ -20,7 +20,7 @@ const NotiBadge = (props) => {
   const [is_check, setIsCheck] = React.useState(true);
 
   const user_id = useSelector(state => state.user.user.uid);
-
+  const { selected } = props;
   // 알림체크
   const notiCheck = () => {
     // 댓글
@@ -32,7 +32,6 @@ const NotiBadge = (props) => {
     likeDB.update({ check: true })
     props._onClick()
   }
-  const [selected, setSelected] = React.useState(false);
 
   React.useEffect(() => {
     const notiDB = realtime.ref(`noti/${user_id}`);

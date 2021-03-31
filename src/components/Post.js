@@ -17,7 +17,7 @@ const Post = React.memo((props) => {
       <Grid >
         <Grid is_flex padding="16px" >
           <Grid is_flex width="auto">
-            <Image shape="avatar" src={props.src} />
+            <Image shape="avatar" src={props.user_info.user_profile} />
             <Text bold>{props.user_info.user_name}</Text>
           </Grid>
           <Grid is_flex width="auto">

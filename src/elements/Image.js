@@ -31,7 +31,7 @@ const Image = (props) => {
 // 기본 설정
 Image.defaultProps = {
   shape: "avatar",
-  src: "https://avatars.githubusercontent.com/u/75150027?v=4",
+  src: "images/dog_1.png",
   size: 36,
 };
 
@@ -65,7 +65,6 @@ const ImagaeAvatar = styled.div`
     width: var(--size);
     height: var(--size);
     border-radius: 15%;
-
     background-image: url("${(props) => props.src}");
     background-size: cover;
     margin: 4px;

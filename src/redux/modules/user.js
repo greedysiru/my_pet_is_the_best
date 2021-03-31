@@ -9,6 +9,10 @@ import { setCookie, deleteCookie } from "../../shared/Cookie";
 import { auth } from '../../shared/firebase';
 import firebase from 'firebase/app';
 
+// 시간체크를 위한 모멘트
+import "moment";
+import moment from "moment";
+
 // Actions
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
@@ -29,6 +33,7 @@ const initialState = {
 // 로그인 후 파이어베이스 정보와 확인
 const loginFB = (id, pwd) => {
   return function (dispatch, getState, { history }) {
+    const _user_profile = makeProfile()
     auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then((res) => {
       auth.signInWithEmailAndPassword(id, pwd)
         .then((user) => {
@@ -36,7 +41,7 @@ const loginFB = (id, pwd) => {
           dispatch(setUser({
             user_name: user.user.displayName,
             id: id,
-            user_profile: '',
+            user_profile: _user_profile,
             uid: user.user.uid,
           })
           );
@@ -56,7 +61,7 @@ const loginFB = (id, pwd) => {
 // Firebase 회원가입
 const signupFB = (id, pwd, user_name) => {
   return function (dispatch, getState, { history }) {
-
+    const _user_profile = makeProfile()
     auth
       .createUserWithEmailAndPassword(id, pwd)
       .then((user) => {
@@ -67,7 +72,7 @@ const signupFB = (id, pwd, user_name) => {
           dispatch(setUser({
             user_name: user_name,
             id: id,
-            user_profile: '',
+            user_profile: _user_profile,
             uid: user.user.uid
           }));
           window.alert('회원가입이 완료되었습니다.')
@@ -92,11 +97,12 @@ const signupFB = (id, pwd, user_name) => {
 const loginCheckFB = () => {
   return function (dispatch, getState, { history }) {
     auth.onAuthStateChanged((user) => {
+      const _user_profile = makeProfile()
       if (user) {
         // 리덕스 최신화
         dispatch(setUser({
           user_name: user.displayName,
-          user_profile: '',
+          user_profile: _user_profile,
           id: user.email,
           uid: user.uid,
         })
@@ -139,7 +145,17 @@ export default handleActions(
   },
   initialState
 );
-
+// 프로필 생성 함수
+const makeProfile = () => {
+  const randomNum = moment().valueOf()
+  const num = randomNum % 10;
+  const imageArray = [
+    "/images/cat_1.png", "/images/dog_1.png", "/images/cat_2.png", "/images/dog_2.png", "/images/cat_3.png",
+    "/images/dog_3.png", "/images/cat_4.png", "/images/cat_4.png", "/images/dog_4.png", "/images/foot.png"
+  ]
+  const imageURL = imageArray[num];
+  return imageURL;
+}
 
 
 // Action Creators exprot

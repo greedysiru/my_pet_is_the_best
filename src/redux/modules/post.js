@@ -197,6 +197,10 @@ const addPostFB = (contents = "",) => {
     };
     // 이미지 프리뷰 접근
     const _image = getState().image.preview;
+    if (_image === null) {
+      window.alert('이미지를 업로드해주세요.');
+      return
+    }
     // 파일이름은 유저의 id와 현재시간을 넣어서 구분
     const _upload = storage.ref(`images/${user_info.user_id}_${new Date().getTime()}`).putString(_image, 'data_url');
 

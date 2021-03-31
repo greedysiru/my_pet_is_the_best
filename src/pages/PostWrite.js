@@ -51,6 +51,10 @@ const PostWrite = (props) => {
 
   // 파이어베이스에 기록
   const addPost = () => {
+    if (!contents) {
+      window.alert('텍스트를 입력해주세요.')
+      return
+    }
     dispatch(postActions.addPostFB(contents));
   }
   // 수정하기
@@ -86,7 +90,7 @@ const PostWrite = (props) => {
           <Text margin="0px" size="24px" bold>미리보기</Text>
         </Grid>
         {/* 프리뷰 */}
-        <Image shape="post" src={preview ? preview : "http://via.placeholder.com/400x300"} />
+        <Image shape="post" src={preview ? preview : "/images/sample.png"} />
       </Grid>
       <Grid padding="16px">
         <Input value={contents} _onChange={changeContents} label="게시글 내용" placeholder="게시글 작성" multiLine />
