@@ -176,7 +176,7 @@ const getOnePostFB = (id) => {
 }
 
 // 포스트 작성
-const addPostFB = (contents = "",) => {
+const addPostFB = (contents = "", layout) => {
   return function (dispatch, getState, { history }) {
     const postDB = firestore.collection('post');
     const _user = getState().user.user;
@@ -194,6 +194,7 @@ const addPostFB = (contents = "",) => {
       insert_dt: moment().valueOf(),
       like_cnt: 0,
       comment_cnt: 0,
+      layout: layout,
     };
     // 이미지 프리뷰 접근
     const _image = getState().image.preview;

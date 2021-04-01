@@ -33,7 +33,7 @@ const PostDetail = (props) => {
 
   return (
     <React.Fragment>
-      {post && <Post {...post} is_me={post.user_info.user_id === user_info?.uid} />}
+      {post && <Post {...post} is_me={post.user_info.user_id === user_info?.uid} is_detail={true} />}
       <Permit>
         <CommentWrite post_id={id} />
       </Permit>

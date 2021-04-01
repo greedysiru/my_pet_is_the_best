@@ -5,19 +5,28 @@ import { Grid, Text, Button, Image, Input } from '../elements';
 // 업로드
 import Upload from '../shared/Upload';
 
+// 프리뷰 컴포넌트
+import Layout from '../components/Layout';
+
 
 // 리덕스, 모듈
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/image';
 
+// material-ui
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+
 // 포스트를 작성하는 페이지
 const PostWrite = (props) => {
   const dispatch = useDispatch();
   // 로그인 여부
   const is_login = useSelector((state) => state.user.is_login);
-  // 프리뷰 정보
-  const preview = useSelector((state) => state.image.preview);
+
   const post_list = useSelector((state) => state.post.list);
 
   // 파라미터로 넘겨받은 아이디
@@ -31,7 +40,7 @@ const PostWrite = (props) => {
   let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
 
   const [contents, setContents] = React.useState('');
-
+  const [layout, setLayout] = React.useState('up')
   // 페이지 권한 여부 체크
   React.useEffect(() => {
     if (is_edit && !_post) {
@@ -49,13 +58,18 @@ const PostWrite = (props) => {
     setContents(e.target.value);
   }
 
+  const changeLayout = (e) => {
+    setLayout(e.target.value);
+  }
+
   // 파이어베이스에 기록
   const addPost = () => {
-    if (!contents) {
-      window.alert('텍스트를 입력해주세요.')
+    if (!contents && !layout) {
+      window.alert('텍스트와 레이아웃을 입력해주세요.')
       return
     }
-    dispatch(postActions.addPostFB(contents));
+
+    dispatch(postActions.addPostFB(contents, layout));
   }
   // 수정하기
   const editPost = () => {
@@ -84,13 +98,27 @@ const PostWrite = (props) => {
         </Text>
         <Upload />
       </Grid>
-
+      {/* material-ui selects */}
+      <InputLabel id="demo-simple-select-label">레이아웃 선택</InputLabel>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={layout}
+        onChange={changeLayout}
+      >
+        <MenuItem value="up">사진 위로</MenuItem>
+        <MenuItem value="down">사진 아래로</MenuItem>
+        <MenuItem value="left">사진 왼쪽으로</MenuItem>
+        <MenuItem value="right">사진 오른쪽으로</MenuItem>
+      </Select>
       <Grid>
-        <Grid padding="16px">
+        <Grid is_flex padding="16px">
           <Text margin="0px" size="24px" bold>미리보기</Text>
+
+          <Grid width="50%"></Grid>
         </Grid>
         {/* 프리뷰 */}
-        <Image shape="post" src={preview ? preview : "/images/sample.png"} />
+        <Layout layout={layout} />
       </Grid>
       <Grid padding="16px">
         <Input value={contents} _onChange={changeContents} label="게시글 내용" placeholder="게시글 작성" multiLine />
@@ -108,5 +136,7 @@ const PostWrite = (props) => {
     </React.Fragment>
   )
 }
+
+
 
 export default PostWrite;

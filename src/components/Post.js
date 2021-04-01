@@ -6,12 +6,14 @@ import { history } from '../redux/configureStore'
 
 // components
 import LikeButton from '../components/LikeButton';
+import Layout from '../components/Layout';
 
 
 // Post
 // 사용자들이 포스트하는 컴포넌트
 // 메모이제이션을 하여 최적화
 const Post = React.memo((props) => {
+  const is_detail = props.is_detail;
   return (
     <React.Fragment>
       <Grid >
@@ -36,7 +38,7 @@ const Post = React.memo((props) => {
           </Grid>
         </Grid>
         <Grid>
-          <Image shape="post" src={props.image_url} />
+          {is_detail ? <Layout {...props} is_detail={true} /> : <Image shape="post" src={props.image_url} />}
         </Grid>
         <Grid padding="16px">
           <Text>{props.contents}</Text>
