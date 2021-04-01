@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# my_pet_is_the_best
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* [mypetisthebest](http://mypetisthebest.site/)
 
-## Available Scripts
+![foot](/Users/jaeminjeon/Documents/Study/Programming/TIL/hanghae99/images/foot.png)
 
-In the project directory, you can run:
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 프로젝트 설명
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* React를 이용한 매거진 사이트
+  * 원페이지 웹사이트
+* BaaS(Backend as a Service)를 활용
+  * Firebase
+* 리덕스와 Firebase의 Storage, Realtime, Store를 활용
+  * 좋아요 기능
+  * 댓글 기능
+  * 좋아요 알림 기능
+  * 댓글 알림 기능
 
-### `yarn test`
+* Styled-components 기반 화면 구성
+  * 일부 SCSS 사용
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 사용 방법
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* 회원가입
+  * 이메일, 비밀번호 입력
+* 컨텐츠를 올리거나 읽을 수 있다.
+* 원하는 레이아웃을 선택하여 포스트를 게시 가능
+* 포스트 작성, 수정, 삭제 가능
+* 댓글 입력 가능
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Contents
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![sns-1](images/sns-4.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+![sns-3](images/sns-3.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+![sns-2](images/sns-2.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![sns-1](images/sns-1.png)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+![sns-5](images/sns-5.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![sns-6](images/sns-6.png)
 
-### Deployment
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### MIT
 
-### `yarn build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Reference
+
+https://www.flaticon.com/
