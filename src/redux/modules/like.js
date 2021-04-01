@@ -23,6 +23,7 @@ const addLikeFB = (user_id, post_id) => {
     const postDB = firestore.collection('post');
     // 리덕스의 유저 정보 가져오기
     const user_info = getState().user.user;
+
     // 해당하는 포스트 번호를 가진 정보 가져오기
     const post = getState().post.list.find(l => l.id === post_id);
 
@@ -46,6 +47,7 @@ const addLikeFB = (user_id, post_id) => {
           user_name: user_info.user_name,
           image_url: post.image_url,
           time: moment().format('YYYY-MM-DD hh:mm:ss'),
+          status: true,
         }, (err) => {
           if (err) {
             console.log('알림 저장 실패');
@@ -66,11 +68,12 @@ const deleteLikeFB = (user_id, post_id) => {
     const postDB = firestore.collection('post');
     // 리덕스의 유저 정보 가져오기
     const user_info = getState().user.user;
+
     // 해당하는 포스트 번호를 가진 정보 가져오기
     const post = getState().post.list.find(l => l.id === post_id);
 
     const like_cnt = post.like_cnt;
-    // 좋아요 수 증가시키기
+    // 좋아요 수 감소
     const increment = firebase.firestore.FieldValue.increment(-1);
     postDB.doc(post_id).update({ like_cnt: increment }).then((_post => {
 
@@ -83,17 +86,18 @@ const deleteLikeFB = (user_id, post_id) => {
         const _like_item = realtime.ref(`like/${post.user_info.user_id}/list`).push();
 
         _like_item.set({
-          post_id: post.id,
-          user_name: user_info.user_name,
-          image_url: post.image_url,
-          time: moment().format('YYYY-MM-DD hh:mm:ss'),
+          post_id: null,
+          user_name: null,
+          image_url: null,
+          time: null,
+          stauts: null,
         }, (err) => {
           if (err) {
             console.log('알림 저장 실패');
           } else {
             const likeDB = realtime.ref(`like/${post.user_info.user_id}`)
 
-            likeDB.update({ check: false });
+            likeDB.update({ check: true });
           }
         })
       }

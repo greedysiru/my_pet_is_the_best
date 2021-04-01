@@ -6,6 +6,8 @@ import CommentWrite from '../components/CommentWrite';
 // 리덕스
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
+import { history } from '../redux/configureStore'
+
 
 import Permit from '../shared/Permit';
 
@@ -23,7 +25,9 @@ const PostDetail = (props) => {
   const post_idx = post_list.findIndex(p => p.id === id);
   const post = post_list[post_idx];
   React.useEffect(() => {
-    if (post) {
+    if (!post) {
+      window.alert('포스트리스트로 돌아갑니다.')
+      history.push("/postlist");
       return
     }
     dispatch(postActions.getOnePostFB(id));

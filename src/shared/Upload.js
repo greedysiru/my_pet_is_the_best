@@ -1,7 +1,7 @@
 import React from "react";
 
 // 최소 단위 구성 컴포넌트
-import { Button } from "../elements";
+import { Button, Grid } from "../elements";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -41,7 +41,7 @@ const Upload = (props) => {
   return (
     <React.Fragment>
       <input type="file" ref={fileInput} onChange={selectFile} />
-      <Button _onClick={uploadFB}>업로드하기</Button>
+      <Button padding="14px 0px" width="70px" _onClick={uploadFB}>업로드</Button>
     </React.Fragment>
   );
 }

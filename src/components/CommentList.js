@@ -48,14 +48,19 @@ const CommentItem = (props) => {
   const { user_profile, user_name, user_id, post_id, time, contents } = props;
   return (
     <Grid is_flex>
-      <Grid is_flex width="auto" >
-        <Image src={user_profile} shape="avatar" />
-        <Text bold>{user_name}</Text>
+      <Grid width="20%"></Grid>
+      <Grid is_flex width="60%">
+        <Grid is_flex width="auto" >
+          <Image src={user_profile} shape="avatar" />
+          <Text bold>{user_name}</Text>
+        </Grid>
+        <Grid is_flex margin="0px 4px">
+          <Text margin="0px">{contents}</Text>
+          <Text margin="0px">{time}</Text>
+        </Grid>
       </Grid>
-      <Grid is_flex margin="0px 4px">
-        <Text margin="0px">{contents}</Text>
-        <Text margin="0px">{time}</Text>
-      </Grid>
+      <Grid width="20%"></Grid>
+
     </Grid>
   )
 }

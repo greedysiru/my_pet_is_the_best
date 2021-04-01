@@ -16,45 +16,51 @@ const Post = React.memo((props) => {
   const is_detail = props.is_detail;
   return (
     <React.Fragment>
-      <Grid >
-        <Grid is_flex padding="16px" >
-          <Grid is_flex width="auto">
-            <Image shape="avatar" src={props.user_info.user_profile} />
-            <Text bold>{props.user_info.user_name}</Text>
+      <div className="post">
+        <Grid >
+          <Grid is_flex padding="16px" >
+            <Grid is_flex width="auto">
+              <Image shape="avatar" src={props.user_info.user_profile} />
+              <Text margin="0px 0px 3px 10px" size="20px" bold>{props.user_info.user_name}</Text>
+            </Grid>
+            <Grid is_flex width="auto">
+              <Text bold >{props.time}</Text>
+              {props.is_me &&
+                <Button
+                  margin="0px 0px 0px 10px"
+                  width="80px"
+                  _onClick={(e) => {
+                    e.stopPropagation();
+                    history.push(`/write/${props.id}`);
+                  }}
+                >수정/삭제</Button>
+              }
+            </Grid>
           </Grid>
-          <Grid is_flex width="auto">
-            <Text>{props.time}</Text>
-            {props.is_me &&
-              <Button
-                width="auto"
-                margin="4px"
-                padding="4px"
-                _onClick={(e) => {
-                  e.stopPropagation();
-                  history.push(`/write/${props.id}`);
-                }}
-              >수정 및 삭제</Button>
-            }
-          </Grid>
-        </Grid>
-        <Grid>
-          {is_detail ? <Layout {...props} is_detail={true} /> : <Image shape="post" src={props.image_url} />}
-        </Grid>
-        <Grid padding="16px">
-          <Text>{props.contents}</Text>
-        </Grid>
-        <Grid is_flex center>
-          <Grid padding="16px">
-            <Text margin="0px" bold>댓글 {props.comment_cnt}개</Text>
+          <Grid bg="whitesmoke">
+            {is_detail ? <Layout {...props} is_detail={true} /> : <Image shape="post" src={props.image_url} />}
           </Grid>
           <Grid padding="16px">
-            <Text margin="0px" bold>좋아요 {props.like_cnt}개</Text>
+            <Text size="16px">{props.contents}</Text>
           </Grid>
-          <Grid size="20px" padding="16px">
-            <LikeButton post_id={props.id} />
+          <Grid is_flex center>
+            <Grid padding="16px">
+              <Text margin="0px" bold>댓글 {props.comment_cnt}개</Text>
+            </Grid>
+            <Grid padding="16px">
+              <Text margin="0px" bold>좋아요 {props.like_cnt}개</Text>
+            </Grid>
+
+            {!props.is_me && <Grid
+              _onClick={(e) => {
+                e.stopPropagation();
+              }}
+              size="20px" padding="16px"> <LikeButton post_id={props.id} /></Grid>}
+
+
           </Grid>
         </Grid>
-      </Grid>
+      </div>
     </React.Fragment >
   );
 });

@@ -36,6 +36,7 @@ const uploadImageFB = (image) => {
       dispatch(uploading(false));
       snapshot.ref.getDownloadURL().then((url) => {
         dispatch(uploadImage(url));
+        window.alert('이미지가 업로드 되었습니다.')
       });
     });
   };

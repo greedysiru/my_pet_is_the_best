@@ -44,7 +44,7 @@ const PostList = (props) => {
   }, []);
   return (
     <React.Fragment>
-      <Grid bg={'#EFF6FF'} padding="20px 0px">
+      <Grid padding="20px 0px">
         {/* 무한스크롤 */}
         <InfinityScroll
           callNext={() => {
@@ -57,13 +57,13 @@ const PostList = (props) => {
           {post_list.map((p, idx) => {
             if (user_info && p.user_info.user_id === user_info.uid) {
               return (
-                <Grid bg="#ffffff" margin="8px 0px" key={p.id} _onClick={() => { history.push(`/post/${p.id}`); }}>
+                <Grid margin="8px 0px" key={p.id} _onClick={() => { history.push(`/post/${p.id}`); }}>
                   <Post key={p.id} {...p} is_me />
                 </Grid>
               );
             } else {
               return (
-                <Grid bg="#ffffff" margin="8px 0px" key={p.id} _onClick={() => { history.push(`/post/${p.id}`); }}>
+                <Grid margin="8px 0px" key={p.id} _onClick={() => { history.push(`/post/${p.id}`); }}>
                   <Post  {...p} />
                 </Grid>
               );

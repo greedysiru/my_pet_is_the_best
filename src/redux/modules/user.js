@@ -9,6 +9,9 @@ import { setCookie, deleteCookie } from "../../shared/Cookie";
 import { auth } from '../../shared/firebase';
 import firebase from 'firebase/app';
 
+// 리얼타임 데이터베이스
+import { firestore, realtime } from "../../shared/firebase";
+
 // 시간체크를 위한 모멘트
 import "moment";
 import moment from "moment";
@@ -74,13 +77,43 @@ const signupFB = (id, pwd, user_name) => {
             id: id,
             user_profile: _user_profile,
             uid: user.user.uid
-          }));
+          }))
+          const userID = user.user.uid
+          console.log(userID, "등록")
+          // 리얼타임 데이터베이스 체크
+          const signup_like = realtime.ref(`like/${userID}/list`).push();
+
+          signup_like.set({
+            time: moment().format('YYYY-MM-DD hh:mm:ss'),
+          }, (err) => {
+            if (err) {
+              console.log('알림 저장 실패');
+            } else {
+              const likeDB = realtime.ref(`like/${userID}`)
+
+              likeDB.update({ check: true });
+            }
+          })
+
+          const signup_noti = realtime.ref(`noti/${userID}/list`).push();
+
+          signup_noti.set({
+
+            time: moment().format('YYYY-MM-DD hh:mm:ss'),
+          }, (err) => {
+            if (err) {
+            } else {
+              const notiDB = realtime.ref(`noti/${userID}`)
+
+              notiDB.update({ read: true });
+            }
+          })
           window.alert('회원가입이 완료되었습니다.')
-          // 회원가입 정상 처리 후 로그인 페이지로 이동
-          history.push('/');
+          // 회원가입 정상 처리 후 포스트 리스트로 이동
+          history.push('/postlist');
         }).catch((error) => {
           console.log(error);
-        });
+        })
 
         // Signed in
       })
@@ -89,6 +122,9 @@ const signupFB = (id, pwd, user_name) => {
         var errorMessage = error.message;
         window.alert(errorMessage);
       });
+
+
+
 
   }
 }

@@ -1,7 +1,264 @@
+// varuables
+:root {
+  /* Colors */
+  --color-prime: whitesmoke;
+  --color-prime-light: #3a3a3a;
+  --color-success: #28c840;
+  --color-info: #226ef9;
+  --color-info-light: #5d78b0;
+  --color-warning: #e08b02;
+  --color-danger: #ff3561;
+  --color-font: #ffffff;
+  --color-font-gray: #939393;
+  /* Border and Shadow(box shadow settings) */
+  --shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  --shadow-border: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+    rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  --border: #464646;
+  --shadow-logo: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  /* space setting */
+  --vertical-space: 20px;
+  --horizontal-space: 15px;
+  /* border raidus */
+  --radius: 5px;
+  --radius-avatar: 30px;
+}
+
+// reset
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input:focus {
+  outline: none;
+  background-color: var(--color-prime);
+}
+
+a {
+  color: #468ed7;
+  text-decoration: none;
+}
+
+/* font */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  width: 100vw;
+  height: 100vh;
+  background-color: #FBF6F0;
+  color: #393e46;
+}
 // 스크롤바 안보이게 하기
 body{
-   -ms-overflow-style: none;
-   } 
+  -ms-overflow-style: none;
+  } 
 ::-webkit-scrollbar { 
-  display: none; 
+ display: none; 
+}
+
+
+// column
+.column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+button,
+input,
+select,
+textarea {
+  color: var(  --color-prime-light);
+  border:none;
+  background-color: var(--color-font-gray);
+  font-weight: 700;
+  transition: all 0.3s ease-in-out;
+  border-radius: var(--radius);
+  &::placeholder{
+    color:whitesmoke;
+  }
+  &:focus{
+    outline: none;
+  }
+  &:focus-within{
+    transition: opacity 0.3s ease-in-out;
+    border-bottom: 3px solid var(--color-warning);
+  }
+  }
+  input:not([type="file"]),
+  select,
+  textarea {
+    font-size: 16px;
+    padding: 15px 0px;
+    margin-bottom: 25px;
+    padding-left: 10px;
+    min-width: 300px;
+}
+  
+a {
+  color: var(--color-font);
+  &:focus{
+    border: 1px solid var(--color-prime);
+    outline: none;
+  }
+  }
+
+  // App.js
+  .app {
+    background-color:  #FBF6F0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  // Post.js
+  .post {
+    background-color: #f4e2cf;
+    border-radius: 30px;
+  }
+
+// PostWrite.js
+.postwrite{
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="file"] {
+  background-color:#e08b02;
+  color: var(--color-font);
+  cursor: pointer;
+  padding: 10px 5px;
+  border-radius: var(--radius);
+  clip:rect(0,0,0,0);
+  margin-right: 10px;
+}
+
+input[type="file"] label{
+  background-color: yellow;
 }

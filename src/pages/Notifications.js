@@ -70,15 +70,15 @@ const Notification = (props) => {
         (<Grid padding="16px" bg="#EFF6FF">
           {noti.map((n, idx) => {
             return (
-              <Card key={`noti_${idx}`} type="noti" {...n} />
+              <Card key={`noti_${idx}`} type="noti" {...n} status={true} />
             )
           })}
         </Grid>)
       }
 
 
-      {toggle ? (<Button text="좋아요" is_float _onClick={() => { setToggle(false) }}></Button>) :
-        (<Button text="댓글" is_float _onClick={() => { setToggle(true) }}></Button>)}
+      {toggle ? (<Button like_btn text="좋아요" is_float _onClick={() => { setToggle(false) }}></Button>) :
+        (<Button co_btn text="댓글" is_float _onClick={() => { setToggle(true) }}></Button>)}
     </React.Fragment>
   )
 }

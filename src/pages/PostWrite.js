@@ -91,48 +91,63 @@ const PostWrite = (props) => {
   }
   return (
     <React.Fragment>
-      <Grid padding="16px">
-        <Text margin="0px" size="36px" bold>
-          {/* 게시글 수정/작성 */}
-          {is_edit ? '게시글 수정 / 삭제' : '게시글 작성'}
-        </Text>
-        <Upload />
-      </Grid>
-      {/* material-ui selects */}
-      <InputLabel id="demo-simple-select-label">레이아웃 선택</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={layout}
-        onChange={changeLayout}
-      >
-        <MenuItem value="up">사진 위로</MenuItem>
-        <MenuItem value="down">사진 아래로</MenuItem>
-        <MenuItem value="left">사진 왼쪽으로</MenuItem>
-        <MenuItem value="right">사진 오른쪽으로</MenuItem>
-      </Select>
-      <Grid>
-        <Grid is_flex padding="16px">
-          <Text margin="0px" size="24px" bold>미리보기</Text>
-
-          <Grid width="50%"></Grid>
+      <div className="postwrite">
+        <Grid padding="16px" >
+          <Text margin="0px 0px 10px " size="36px" bold>
+            {/* 게시글 수정/작성 */}
+            {is_edit ? '게시글 수정 / 삭제' : '게시글 작성'}
+          </Text>
+          <Upload />
         </Grid>
-        {/* 프리뷰 */}
-        <Layout layout={layout} />
-      </Grid>
-      <Grid padding="16px">
-        <Input value={contents} _onChange={changeContents} label="게시글 내용" placeholder="게시글 작성" multiLine />
-      </Grid>
-      <Grid padding="16px">
-        {is_edit ? (<Grid is_flex>
-          <Button text="게시글 수정" _onClick={editPost} ></Button>
-          <Button text="게시글 삭제" _onClick={deletePost} ></Button>
+        {/* material-ui selects */}
+        <Grid padding="10px" >
+          <InputLabel id="demo-simple-select-label">레이아웃 선택</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={layout}
+            onChange={changeLayout}
+          >
+            <MenuItem value="up">사진 위로</MenuItem>
+            <MenuItem value="down">사진 아래로</MenuItem>
+            <MenuItem value="left">사진 왼쪽으로</MenuItem>
+            <MenuItem value="right">사진 오른쪽으로</MenuItem>
+          </Select>
         </Grid>
-        ) : (
-          <Button margin="0px 0px 30px 0px" text="게시글 작성" _onClick={addPost} ></Button>
-        )}
+        <Grid>
+          <Grid is_flex padding="16px">
+            <Text margin="0px" size="24px" bold>미리보기</Text>
 
-      </Grid>
+            <Grid width="50%"></Grid>
+          </Grid>
+          {/* 프리뷰 */}
+          <Layout layout={layout} />
+        </Grid>
+        <Grid padding="16px" center >
+
+          <Input value={contents} _onChange={changeContents} placeholder="게시글 작성" multiLine />
+        </Grid>
+        <Grid is_flex>
+          <Grid center padding="16px" margin="0px 0px 30px 0px">
+            {is_edit ? (<Grid center is_flex width="100%">
+              <Grid width="50%" >
+                <Button text="게시글 수정" _onClick={editPost} ></Button>
+              </Grid>
+              <Grid width="50%">
+                <Button text="게시글 삭제" _onClick={deletePost} ></Button>
+              </Grid>
+            </Grid>
+            ) : (
+              <Grid is_flex >
+                <Grid width="1%"></Grid>
+                <Button padding="10px 0px" text="게시글 작성" _onClick={addPost} ></Button>
+                <Grid width="1%"></Grid>
+              </Grid>
+            )}
+
+          </Grid>
+        </Grid>
+      </div>
     </React.Fragment>
   )
 }

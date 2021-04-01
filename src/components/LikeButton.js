@@ -65,7 +65,7 @@ const LikeButton = (props) => {
 
   return (
     <React.Fragment>
-      {is_like ? (<AiOutlineHeart onClick={likeCheck} />) : (<AiFillHeart onClick={deleteLike} />)}
+      {is_like ? (<AiOutlineHeart color={"grey"} onClick={likeCheck} />) : (<AiFillHeart color={"red"} onClick={deleteLike} />)}
     </React.Fragment>
   )
 }

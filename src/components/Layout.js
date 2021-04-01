@@ -21,45 +21,56 @@ const Layout = (props) => {
   if (layout === "up" || layout === "") {
     return (
       <Grid is_felx center>
-        <Grid width="100%" is_flex>
-          <Grid width="33%"></Grid>
-          <Image size="250" src={preview ? preview : "/images/dog_1.png"} />
-          <Grid width="33%"></Grid>
+        <Grid width="100%" is_flex bg="whitesmoke">
+          <Grid width="1%"></Grid>
+          <Image size="300" src={preview ? preview : "/images/dog_1.png"} />
+          <Grid width="1%"></Grid>
         </Grid>
-        <Text bold size="24px">컨텐츠 내용</Text>
+        <Text margin="5px 0px 0px 0px" bold size="24px">{is_detail ? '' : "컨텐츠 내용"}</Text>
       </Grid>
     )
   } else if (layout === "down") {
     return (
       <Grid is_felx center>
-        <Text bold size="24px">컨텐츠 내용</Text>
-        <Grid width="100%" is_flex>
-          <Grid width="33%"></Grid>
-          <Image size="250" src={preview ? preview : "/images/dog_1.png"} />
-          <Grid width="33%"></Grid>
+        <Text margin="0px 0px 5px 0px" bold size="24px">컨텐츠 내용</Text>
+        <Grid width="100%" bg="whitesmoke" is_flex>
+          <Grid width="1%"></Grid>
+          <Image size="300" src={preview ? preview : "/images/dog_1.png"} />
+          <Grid width="1%"></Grid>
         </Grid>
       </Grid>
     )
   } else if (layout === "left") {
     return (
-      <Grid center is_flex>
-        <Grid>
+      <Grid bg="whitesmoke" center is_flex>
+        <Grid is_flex>
+          <Grid width="1%"></Grid>
+
           <Image size="250" src={preview ? preview : "/images/dog_1.png"} />
+          <Grid width="1%"></Grid>
+
         </Grid>
-        <Grid>
+        <Grid center is_flex>
+          <Grid width="1%"></Grid>
           <Text bold size="24px">컨텐츠 내용</Text>
+          <Grid width="1%"></Grid>
         </Grid>
       </Grid>
     )
   } else if (layout === "right") {
     return (
-      <Grid center is_flex>
-        <Grid>
+      <Grid bg="whitesmoke" center is_flex>
+        <Grid center is_flex>
+          <Grid width="1%"></Grid>
           <Text bold size="24px">컨텐츠 내용</Text>
-
+          <Grid width="1%"></Grid>
         </Grid>
-        <Grid>
+        <Grid is_flex>
+          <Grid width="1%"></Grid>
+
           <Image size="250" src={preview ? preview : "/images/dog_1.png"} />
+          <Grid width="1%"></Grid>
+
         </Grid>
       </Grid>
     )

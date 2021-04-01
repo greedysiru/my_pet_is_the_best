@@ -28,8 +28,9 @@ const Footer = (props) => {
 
   return (
     <React.Fragment>
-      <FooterWrap>
-        <Grid is_flex center>
+      <FooterWrap >
+        <Grid width="15%"></Grid>
+        <Grid width="70%" bg="#444444" is_flex center>
           <Grid center size="32px" padding="7px"
             _onClick={() => {
               setSelectedHome(true);
@@ -38,9 +39,9 @@ const Footer = (props) => {
               setSelectedInfo(false);
               history.push("/postlist")
             }}>
-            {selectedHome ? (<AiFillHome />) : (<AiOutlineHome />)}
+            {selectedHome ? (<AiFillHome color={"whitesmoke"} />) : (<AiOutlineHome color={"whitesmoke"} />)}
           </Grid>
-          <Grid center size="32px" padding="9px"
+          <Grid center size="32px" padding="7px"
             _onClick={() => {
               setSelectedHome(false);
               setSelectedEdit(true);
@@ -48,7 +49,7 @@ const Footer = (props) => {
               setSelectedInfo(false);
               history.push("/write")
             }}>
-            {selectedEdit ? (<AiFillEdit />) : (<AiOutlineEdit />)}
+            {selectedEdit ? (<AiFillEdit color={"whitesmoke"} />) : (<AiOutlineEdit color={"whitesmoke"} />)}
 
           </Grid>
           <Grid size="32px">
@@ -70,9 +71,10 @@ const Footer = (props) => {
               setSelectedInfo(true);
               history.push("/information")
             }}>
-            {selectedInfo ? (<FaUserCircle />) : (<FaRegUserCircle />)}
+            {selectedInfo ? (<FaUserCircle color={"whitesmoke"} />) : (<FaRegUserCircle color={"whitesmoke"} />)}
 
           </Grid>
+          <Grid width="15%"></Grid>
         </Grid>
       </FooterWrap>
     </React.Fragment>
@@ -83,9 +85,12 @@ Footer.defaultProps = {}
 
 const FooterWrap = styled.div`
   display:flex;
+  justify-contents: center;
+  align-items: center;
+  text-align: center;
   width: 100%;
   height: 7%;
-  background-color: white;
+
   position: fixed;
   bottom:0;
   left:0;

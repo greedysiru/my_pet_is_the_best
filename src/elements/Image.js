@@ -25,7 +25,11 @@ const Image = (props) => {
       </AspectOutter>
     )
   }
-
+  if (shape == 'default') {
+    return (
+      <ImageDefault {...styles}></ImageDefault>)
+  }
+  return null
 }
 
 // 기본 설정

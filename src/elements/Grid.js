@@ -5,9 +5,10 @@ import styled from 'styled-components';
 // 화면의 요소를 구성하는 최소 단위 컴포넌트
 const Grid = (props) => {
   // 부모요소로부터 태그 속성을 전달받기
-  const { is_flex, width, margin, padding, bg, children, center, size, _onClick } = props;
+  const { border, height, is_flex, width, margin, padding, bg, children, center, size, _onClick, column } = props;
   // 전달 받은 값을 별도의 변수에 담기
   const styles = {
+    border: border,
     is_flex: is_flex,
     width: width,
     margin: margin,
@@ -15,6 +16,8 @@ const Grid = (props) => {
     bg: bg,
     center: center,
     size: size,
+    height: height,
+    column: column,
   }
   return (
     <React.Fragment>
@@ -29,6 +32,7 @@ const Grid = (props) => {
 
 // Grid의 기본 props
 Grid.defaultProps = {
+  border: false,
   children: null,
   is_flex: false,
   width: "100%",
@@ -37,6 +41,8 @@ Grid.defaultProps = {
   bg: false,
   center: false,
   size: false,
+  height: false,
+  column: false,
   _onClick: () => { },
 };
 
@@ -44,6 +50,7 @@ Grid.defaultProps = {
 const GridBox = styled.div`
   color: black;
   width: ${(props) => props.width};
+  height: ${(props) => props.height};
   height: 100%;
   box-sizing: border-box;
   ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
@@ -53,6 +60,13 @@ const GridBox = styled.div`
     `display: flex; align-items: center; justify-content: space-between;` : ''}
   ${(props) => props.center ? `text-align: center;` : ''}
   ${(props) => props.size ? `font-size: ${props.size};` : ''}
-`;
+  ${(props) => props.column ?
+    `display: flex; felx-direction: column; align-items: center; justify-content: space-between ; ` : ''}
+    ${(props) => props.border ?
+    `border: 1px solid #444444;` : ''
+  }
+    `
+
+
 
 export default Grid;

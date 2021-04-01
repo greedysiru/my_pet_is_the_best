@@ -63,17 +63,14 @@ Input.defaultProps = {
 }
 
 const ElTextarea = styled.textarea`
-  border: 1px splid #212121;
-  width: 100%;
-  padding: 12px 4px;
   box-sizing: border-box;
+  width:90%;
+  @media
 `;
 
 const ElInput = styled.input`
-  border: 1px splid #212121;
-  width: 100%;
-  padding: 12px 4px;
   box-sizing: border-box;
 `;
+
 
 export default Input;

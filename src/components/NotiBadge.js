@@ -36,6 +36,14 @@ const NotiBadge = (props) => {
   React.useEffect(() => {
     const notiDB = realtime.ref(`noti/${user_id}`);
     const likeDB = realtime.ref(`like/${user_id}`);
+    console.log(user_id)
+    console.log(notiDB)
+    if (notiDB === null) {
+      return null
+    }
+    if (likeDB === null) {
+      return null
+    }
     notiDB.on('value', (snapshot) => {
       setIsRead(snapshot.val().read);
     });
@@ -52,9 +60,9 @@ const NotiBadge = (props) => {
 
   return (
     <React.Fragment>
-      <Grid>
+      <Grid padding="2px 0px 0px 0px">
         <Badge color="secondary" variant="dot" invisible={is_check && is_read} onClick={notiCheck}>
-          {selected ? <AiFillBell /> : (<AiOutlineBell />)}
+          {selected ? <AiFillBell color={"whitesmoke"} /> : (<AiOutlineBell color={"whitesmoke"} />)}
         </Badge>
       </Grid>
     </React.Fragment>

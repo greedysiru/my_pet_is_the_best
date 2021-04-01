@@ -1,7 +1,7 @@
 import React from "react";
 
 // 최소 단위 컴포넌트 불러오기
-import { Text, Input, Grid, Button } from "../elements";
+import { Image, Input, Grid, Button } from "../elements";
 
 // 리덕스
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -38,43 +38,44 @@ const Login = (props) => {
   }
   return (
     <React.Fragment>
-      <Grid padding="16px">
-        <Text size="32px" bold>
-          로그인
-        </Text>
+      <div className="column">
+        <Image shape="default" src="/images/logo.png" size="350" />
+        <Grid padding="16px">
 
-        <Grid padding="16px 0px">
-          <Input
-            label="아이디"
-            placeholder="아이디를 입력해주세요."
-            _onChange={(e) => {
-              setId(e.target.value);
-            }}
-          />
+          <Grid center>
+            <Input
+              placeholder="이메일을 입력해주세요."
+              _onChange={(e) => {
+                setId(e.target.value);
+              }}
+            />
+          </Grid>
+
+          <Grid center>
+            <Input
+              placeholder="패스워드를 입력해주세요."
+              type="password"
+              _onChange={(e) => {
+                setPwd(e.target.value);
+              }}
+              value={pwd}
+              is_submit
+              onSubmit={login}
+            />
+          </Grid>
+          <Grid center margin="0px 0px 25px 0px">
+            <Button
+              text="로그인"
+              _onClick={() => {
+                login()
+              }}
+            ></Button>
+          </Grid>
+          <Grid center>
+            <Button text="회원가입하기" _onClick={() => { history.push("/signup") }}></Button>
+          </Grid>
         </Grid>
-
-        <Grid padding="16px 0px">
-          <Input
-            label="패스워드"
-            placeholder="패스워드를 입력해주세요."
-            type="password"
-            _onChange={(e) => {
-              setPwd(e.target.value);
-            }}
-            value={pwd}
-            is_submit
-            onSubmit={login}
-          />
-        </Grid>
-
-        <Button
-          text="로그인"
-          _onClick={() => {
-            login()
-          }}
-        ></Button>
-        <Button text="회원가입하기" _onClick={() => { history.push("/signup") }}></Button>
-      </Grid>
+      </div>
     </React.Fragment>
   );
 };
