@@ -73,7 +73,7 @@ const PostWrite = (props) => {
   }
   // 수정하기
   const editPost = () => {
-    dispatch(postActions.editPostFB(post_id, { contents: contents }));
+    dispatch(postActions.editPostFB(post_id, { contents: contents, layout: layout }));
   }
   // 삭제하기
   const deletePost = () => {
