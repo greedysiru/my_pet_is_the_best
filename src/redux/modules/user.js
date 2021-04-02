@@ -109,8 +109,8 @@ const signupFB = (id, pwd, user_name) => {
             }
           })
           window.alert('회원가입이 완료되었습니다.')
-          // 회원가입 정상 처리 후 포스트 리스트로 이동
-          history.push('/postlist');
+          // 회원가입 정상 처리 후 로그인으로 이동
+          history.push('/');
         }).catch((error) => {
           console.log(error);
         })

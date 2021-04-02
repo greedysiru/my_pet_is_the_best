@@ -38,10 +38,12 @@ const Post = React.memo((props) => {
             </Grid>
           </Grid>
           <Grid bg="whitesmoke">
-            {is_detail ? <Layout {...props} is_detail={true} /> : <Image shape="post" src={props.image_url} />}
+            {is_detail ? <Layout {...props} is_detail={true} /> : <Image shape="post" src={props.image_url}
+
+            />}
           </Grid>
           <Grid padding="16px">
-            <Text size="16px">{props.contents}</Text>
+            {is_detail ? '' : (<Text size="16px">{props.contents}</Text>)}
           </Grid>
           <Grid is_flex center>
             <Grid padding="16px">

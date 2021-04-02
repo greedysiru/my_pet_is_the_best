@@ -26,7 +26,7 @@ const CommentWrite = (props) => {
       window.alert("댓글을 입력해주세요.");
       return;
     }
-    // 파이어스토어에 추가합니다.
+    // 파이어스토어에 추가
     dispatch(commentActions.addCommentFB(post_id, comment_text));
     // 입력된 텍스트는 지우기!
     setCommentText("");
