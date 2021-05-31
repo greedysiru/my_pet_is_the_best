@@ -2,7 +2,7 @@
 
 * [mypetisthebest](http://mypetisthebest.site/)
 
-![foot](/images/foot.png)
+![foot](images/foot.png)
 
 
 
